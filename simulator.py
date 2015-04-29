@@ -79,5 +79,6 @@ class Simulator:
             objCounter = item[1]
             if self.counter % objCounter == 0:
                 objName.step()
-        print('signal {}'.format(time.ctime()))
+        system_time = time.strftime('%D %H:%M:%S', time.localtime())
+        print('[info] simulation time {} [{}]'.format(self.counter, system_time))
         self.counter += 1
