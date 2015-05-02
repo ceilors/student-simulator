@@ -5,121 +5,119 @@ class Quest:
         Каждое задание имеет два возможных варианта исхода,
         которые по разному изменяют параметры студента.
         Автоматически будет выбираться тот вариант,
-        который "подвинет" студента ближе к критической зоне,
-        т.е. минимизируется модуль разности вектора критического
-        состояния и суммы векторов задания и студента.
+        который "подвинет" студента ближе к нормальному состоянию,
+        т.е. минимизируется модуль суммы векторов задания и студента.
     """
-    """
-        Комментарий для нас, конкретика автоматического выбора решения:
-        вычитаем из векторов критических состояний вектор студента,
-        берем то к.с., при котором модуль получился минимальным:
-        так мы определили "направление развития" студента.
-        После этого складываем вектора impact.one и impact.two с
-        вектором студента и вычитаем его из вектора выбранного к.с.
-        После чего берем тот вариант исхода задания, при котором
-        модуль разности получается минимальным. Т.о. мы "продвигаем"
-        студента по выбранному им пути.
-    """
-    # влияние задание на студента
+    # название задания
+    name = 'demo-quest'
+    # первый вариант выполнения задания
+    #   влияние задания на студента
     impact_one = {
-        # при первом варианте выполнения задания
         'mood':     0,
         'progress': 0,
         'satiety':  0,
         'finances': 0
     }
-        # при втором варианте выполнения задания
+    #   название решения
+    one_name = 'first'
+    # первый вариант выполнения задания
+    #   влияние задания на студента
     impact_two = {
         'mood':     0,
         'progress': 0,
         'satiety':  0,
         'finances': 0
     }
+    #   название решения
+    two_name = 'second'
     # получаемый опыт
     xp = 0
-    # название задания
-    name = 'demo-quest'
     # продолжительность (в шагах)
     duration = 1
+    # текст выводимый при получении задания
+    info = ''
 
     """
         назначение: инициализация класса
         входные параметры:
+            name        -- название задания
             one         -- словарь влияния первого варианта решения на студента
+            one_name    -- название первого варианта решения
             two         -- словарь влияния второго варианта решения на студента
+            two_name    -- название второго варианта решения
             xp          -- количество получаемого опыта
             name        -- название задания
             duration    -- продолжительность задания
+            info        -- текст выводимый при получении задания
         выходные параметры:
             None
     """
-    def __init__(self, one={'mood':0,'progress':0,'satiety':0,'finances':0},
+    def __init__(self, name='demo-quest',
+                       one_name='first',
+                       one={'mood':0,'progress':0,'satiety':0,'finances':0},
+                       two_name='second',
                        two={'mood':0,'progress':0,'satiety':0,'finances':0},
-                       xp=0, name='demo-quest', duration=1):
-        self.impact_one = one
-        self.impact_two = two
-        self.xp         = xp
+                       xp=0, duration=1, info=''):
         self.name       = name
+        self.one_name   = one_name
+        self.one_impact = one
+        self.two_name   = two_name
+        self.two_impact = two
+        self.xp         = xp
         self.duration   = duration
+        self.info       = info
 
     def __str__(self):
-        return '[one: {}, {}, {}, {}, two: {}, {}, {}, {}]'.format(self.impact_one['mood'], self.impact_one['progress'],
-            self.impact_one['satiety'], self.impact_one['finances'], self.impact_two['mood'], self.impact_two['progress'],
-            self.impact_two['satiety'], self.impact_two['finances'])
+        return '{}, {}, {}; {}: {}, {}: {}'.format(self.name, self.xp, self.duration,
+            self.one_name, self.one_impact, self.two_name, self.two_impact)
 
-"""
-    Комментарий для нас, конкретика автоматического выбора решения:
-    вычитаем из векторов критических состояний вектор студента,
-    берем то к.с., при котором модуль получился минимальным:
-    так мы определили "направление развития" студента.
-    После этого складываем вектора impact.one и impact.two с
-    вектором студента и вычитаем его из вектора выбранного к.с.
-    После чего берем тот вариант исхода задания, при котором
-    модуль разности получается минимальным. Т.о. мы "продвигаем"
-    студента по выбранному им пути.
-"""
 def auto_choice(student, quest):
-    crit_high = [100, 100, 100, 100]
-    crit_low = [-100, -100, -100, -100]
-    st_high = sum(list(map(lambda i, j: (i - j) ** 2, crit_high, student)))
-    st_low  = sum(list(map(lambda i, j: (i - j) ** 2, crit_low,  student)))
-    st_one = list(map(lambda i, j: i + j, student, quest.impact_one.values()))
-    st_two = list(map(lambda i, j: i + j, student, quest.impact_two.values()))
-    if st_high > st_low:
-        high_one = sum(list(map(lambda i, j: (i - j) ** 2, crit_high, st_one)))
-        high_two = sum(list(map(lambda i, j: (i - j) ** 2, crit_high, st_two)))
-        if high_one > high_two:
-            # student choses second type
-            return 0
-        else:
-            return 1
+    st_one = abs(sum(list(map(lambda i, j: i + j, student, quest.one_impact.values()))))
+    st_two = abs(sum(list(map(lambda i, j: i + j, student, quest.two_impact.values()))))
+    if st_one > st_two:
+        # student choses second type
+        return 0
     else:
-        low_one = sum(list(map(lambda i, j: (i - j) ** 2, crit_high, st_one)))
-        low_two = sum(list(map(lambda i, j: (i - j) ** 2, crit_high, st_two)))
-        if low_one > low_two:
-            # student choses second type
-            return 0
-        else:
-            return 1
+        # student choses first type
+        return 1
 
 
 job_list = [
-    Quest({'mood':   6, 'progress':  10, 'satiety':  0, 'finances':   0},
-          {'mood':   6, 'progress':  10, 'satiety':  0, 'finances':   0}, 10, 'Пары', 3),
-    Quest({'mood':  -6, 'progress':  20, 'satiety':  0, 'finances':   0},
-          {'mood':  -6, 'progress':  20, 'satiety':  0, 'finances':   0}, 20, 'Курсовая', 10),
-    Quest({'mood':  10, 'progress':  -5, 'satiety':  0, 'finances':   0},
-          {'mood':  10, 'progress':  -5, 'satiety':  0, 'finances':   0},  5, 'Развлечение', 3),
-    Quest({'mood':  10, 'progress':   0, 'satiety': 30, 'finances': -10},
-          {'mood':  10, 'progress':   0, 'satiety': 30, 'finances': -10}, 10, 'Еда', 1),
-    Quest({'mood': -10, 'progress':  -5, 'satiety': -5, 'finances':  20},
-          {'mood': -10, 'progress':  -5, 'satiety': -5, 'finances':  20}, 20, 'Подработка', 10)
+    # шаблон задания:
+    # Quest(name,
+    #       one_name, {'mood': mood1, 'progress': progress1, 'satiety': satiety1, 'finances': finances1},
+    #       two_name, {'mood': mood2, 'progress': progress2, 'satiety': satiety2, 'finances': finances2},
+    #       xp, duration)
+    # Значения mood1,2, progress1,2 и др. являются коэффициентами (!),
+    # реальное значение изменений зависит от текущего состояния студента
+    Quest('Пары',
+          'Посетить',    {'mood':  0, 'progress':  1, 'satiety':  0, 'finances':  0},
+          'Пропустить',  {'mood':  1, 'progress': -1, 'satiety':  0, 'finances':  0},
+           30, 3),
+    Quest('Курсовая',
+          'Сделать',     {'mood': -1, 'progress':  3, 'satiety': -1, 'finances':  0},
+          'Купить',      {'mood':  1, 'progress':  3, 'satiety':  0, 'finances': -2},
+           50, 5),
+    Quest('Развлечение',
+          'Играться',    {'mood':  2, 'progress':  0, 'satiety': -1, 'finances':  0},
+          'Прогуляться', {'mood':  3, 'progress':  0, 'satiety': -1, 'finances': -1},
+           30, 3),
+    Quest('Еда',
+          'Приготовить', {'mood':  1, 'progress':  0, 'satiety':  2, 'finances':  0},
+          'Заказать',    {'mood':  3, 'progress':  0, 'satiety':  2, 'finances': -1},
+           10, 1),
+    Quest('Добыть денег',
+          'Работать',    {'mood':  1, 'progress': -1, 'satiety': -1, 'finances':  3},
+          'Одолжить',    {'mood': -1, 'progress':  0, 'satiety':  0, 'finances':  3},
+           50, 5)
 ]
 
 def generate(student):
-    # учитываем simulator.counter
     from random import choice
     from copy import deepcopy
+    mood, progress, satiety, finances = student
+    # учитываем состояние студента,
+    # учитываем simulator.counter
     quest = deepcopy(choice(job_list))
-    print(quest)
+    print('started quest: {}'.format(quest.name))
     return quest

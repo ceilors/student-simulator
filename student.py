@@ -51,6 +51,17 @@ class Student:
         return 'student: mood = {}, progress = {}, satiety = {}, ' \
           'finances = {}; quest: {} [{}]'.format(self.mood, self.progress, self.satiety, self.finances, self.quest.name, self.quest.duration)
 
+    def change(self, vector):
+        for i in vector:
+            if i == 'mood':
+                self.mood += vector[i]
+            elif i == 'progress':
+                self.progress += vector[i]
+            elif i == 'satiety':
+                self.satiety += vector[i]
+            else:
+                self.finances += vector[i]
+
     """
         назначение: изменение параметров во времени
         входные параметры:
@@ -62,39 +73,16 @@ class Student:
         # код отвечающий за изменение параметров 
         # в соответствии с интервалом времени
         
-        # каждый шаг студенту становится скучнее, голоднее и ... "глупее"
+        # каждый шаг студенту становится скучнее и голоднее
         self.mood -= 1
-        self.progress -= 1
         self.satiety -= 1
         # продолжение квеста или же выбор нового
         self.quest.duration -= 1
         if self.quest.duration <= 0:
             if self.choice:
-                for i in self.quest.impact_one:
-                    if i == 'mood':
-                        print(self.mood)
-                        self.mood += self.quest.impact_one[i]
-                        print(self.quest)
-                        print(self.mood)
-                    elif i == 'progress':
-                        self.progress += self.quest.impact_one[i]
-                    elif i == 'satiety':
-                        self.satiety += self.quest.impact_one[i]
-                    else:
-                        self.finances += self.quest.impact_one[i]
+                self.change(self.quest.one_impact)
             else:
-                for i in self.quest.impact_two:
-                    if i == 'mood':
-                        print(self.mood)
-                        self.mood += self.quest.impact_two[i]
-                        print(self.quest)
-                        print(self.mood)
-                    elif i == 'progress':
-                        self.progress += self.quest.impact_two[i]
-                    elif i == 'satiety':
-                        self.satiety += self.quest.impact_two[i]
-                    else:
-                        self.finances += self.quest.impact_two[i]
+                self.change(self.quest.two_impact)
             del self.quest
             # генерация задания
             st = [
@@ -105,6 +93,10 @@ class Student:
             ]
             self.quest = quest.generate(st)
             self.choice = quest.auto_choice(st, self.quest)
+            if self.choice:
+                print('Студент выбирает первый вариант решения: {}'.format(self.quest.one_name))
+            else:
+                print('Студент выбирает второй вариант решения: {}'.format(self.quest.two_name))
         # вывод информации о студенте в текущий момент времени
         print(str(self))
 
