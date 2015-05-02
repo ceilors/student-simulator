@@ -1,3 +1,4 @@
+from threading import Thread
 import signal
 import time
 import os
@@ -72,13 +73,27 @@ class Simulator:
         выходные параметры:
             None
         * смотри https://docs.python.org/2/reference/datamodel.html#frame-objects
-    """  
+    """
     def step(self, signum, frame):
         for item in self.objList:
-            objName = item[0]
-            objCounter = item[1]
-            if self.counter % objCounter == 0:
-                objName.step()
+            thread = Thread(target=callThread, args=(item, self.counter))
+            thread.start()
+        # ожидаем выполнение последнего потока
+        thread.join()
         system_time = time.strftime('%D %H:%M:%S', time.localtime())
         print('[info] simulation time {} [{}]'.format(self.counter, system_time))
         self.counter += 1
+
+"""
+    функция обработки объектов симуляции в отдельных потоках
+    входные параметры:
+        obj         -- объект симуляции
+        counter     -- счётчик симуляции
+    выходные параметры:
+        None
+"""
+def callThread(obj, counter):
+    objName = obj[0]
+    objCounter = obj[1]
+    if counter % objCounter == 0:
+        objName.step()
