@@ -1,3 +1,4 @@
+from random import randint, random
 import time
 import quest
 
@@ -18,6 +19,9 @@ class Student:
     quest = quest.Quest()
     # вариант решения задания
     choice = 0
+    # константы
+    xp = 50
+    inspired = 20
     
     """
         назначение: инициализации класса
@@ -91,12 +95,18 @@ class Student:
                 self.satiety,
                 self.finances
             ]
-            self.quest = quest.generate(st)
-            self.choice = quest.auto_choice(st, self.quest)
-            if self.choice:
-                print('Студент выбирает первый вариант решения: {}'.format(self.quest.one_name))
+            chance = random()
+            if chance <= 0.5: # подобрать вероятность
+                self.quest = self.captainCall()
+            elif chance <= 0.1: # подобрать вероятность
+                self.quest = self.inspiredCall()
             else:
-                print('Студент выбирает второй вариант решения: {}'.format(self.quest.two_name))
+                self.quest = quest.generate(st)
+                self.choice = quest.auto_choice(st, self.quest)
+                if self.choice:
+                    print('Студент выбирает первый вариант решения: {}'.format(self.quest.one_name))
+                else:
+                    print('Студент выбирает второй вариант решения: {}'.format(self.quest.two_name))
         # вывод информации о студенте в текущий момент времени
         print(str(self))
 
@@ -104,49 +114,52 @@ class Student:
         добавить функцию внешних факторов влияющую на систему
         посредство взаимодействия с окружающими людьми/факторами/случайностями
     """
-    from random import randint
 
     def captainCall(self):
-        mood = progress = satiety = finances = 0
+        mood = progress = satiety = 0
         info = ''
         if self.progress <= -25:
             # bad
-            info = 'слишком плохой день...'
             mood = -self.inspired / 2
             progress = 5
         elif self.progress <= 50:
             # normal
-            info = 'зачем?!'
             mood = -1
             progress = 1
         else:
             # good
-            info = 'я умняшка...'
             mood = self.inspired / 2
             progress = 5
-        return Quest({'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': finances}, \
-            {}, self.xp, info, 1)
+        # пока оставляю без изменения второе событие
+        return quest.Quest('Звонок старосты', 'Ответить', 
+                      {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0}, 
+                      'Игнорировать', 
+                      {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
+                      self.xp, 0)
 
     def inspiredCall(self):
-        jobSelect = randint(4)
+        jobSelect = randint(0, 4)
         mood = progress = satiety = finances = 0
         info = ''
         if jobSelect == 0:
             # mood
             mood = self.inspired
-            info = 'всё хорошо!'
+            info = '*вас пропёрло на хорошое настроение*'
         elif jobSelect == 1:
             # progress
             progress = self.inspired
-            info = 'да я крут...'
+            info = '*вас посетило вдохновение*'
         elif jobSelect == 2:
             # satiety
             satiety = self.inspired
-            info = 'больше не могу'
+            info = '*вы очень хоршо покушали*'
         elif jobSelect == 3:
             # finances
             finances = self.inspired
             mood = self.inspired / 2
-            info = '*вы находите 1000 рублей*'
-        return Quest({'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': finances}, \
-            {}, self.xp, info, 1)
+            info = '*вы нашли N рублей*'
+        return quest.Quest(info, 'Принятие', 
+                      {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0}, 
+                      'Игнорирование', 
+                      {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
+                      self.xp, 0)
