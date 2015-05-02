@@ -52,8 +52,9 @@ class Student:
             None
     """
     def __str__(self):
-        return 'student: mood = {}, progress = {}, satiety = {}, ' \
-          'finances = {}; quest: {} [{}]'.format(self.mood, self.progress, self.satiety, self.finances, self.quest.name, self.quest.duration)
+        fmt_str = 'student: mood = {}, progress = {}, satiety = {}, finances = {}; quest: {} [{}]'
+        return fmt_str.format(self.mood, self.progress, self.satiety, self.finances,
+            self.quest.name, self.quest.duration)
 
     def change(self, vector):
         for i in vector:
@@ -96,17 +97,20 @@ class Student:
                 self.finances
             ]
             chance = random()
-            if chance <= 0.5: # подобрать вероятность
+            # подобрать вероятность для случайных событий
+            if chance <= 0.5:
                 self.quest = self.captainCall()
-            elif chance <= 0.1: # подобрать вероятность
+            elif chance <= 0.1:
                 self.quest = self.inspiredCall()
             else:
                 self.quest = quest.generate(st)
                 self.choice = quest.auto_choice(st, self.quest)
+                buffer_str = 'Студент выбирает {} вариант решения: {}'
                 if self.choice:
-                    print('Студент выбирает первый вариант решения: {}'.format(self.quest.one_name))
+                    buffer_str = buffer_str.format('первый', self.quest.one_name)
                 else:
-                    print('Студент выбирает второй вариант решения: {}'.format(self.quest.two_name))
+                    buffer_str = buffer_str.format('второй', self.quest.two_name)
+                print(buffer_str)
         # вывод информации о студенте в текущий момент времени
         print(str(self))
 
@@ -134,9 +138,9 @@ class Student:
             mood = self.inspired / 2
             progress = 5
         # пока оставляю без изменения второе событие
-        return quest.Quest(info, 'Ответить', 
-            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0}, 
-            'Игнорировать', 
+        return quest.Quest(info, 'Ответить',
+            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
+            'Игнорировать',
             {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
             self.xp, 0)
 
@@ -161,8 +165,9 @@ class Student:
             finances = self.inspired
             mood = self.inspired / 2
             info = '*вы нашли N рублей*'
-        return quest.Quest(info, 'Принятие', 
-                      {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0}, 
-                      'Игнорирование', 
-                      {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
-                      self.xp, 0)
+        # пока оставляю без изменения второе событие
+        return quest.Quest(info, 'Принятие',
+            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
+            'Игнорирование',
+            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
+            self.xp, 0)
