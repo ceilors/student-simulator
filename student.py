@@ -117,25 +117,28 @@ class Student:
 
     def captainCall(self):
         mood = progress = satiety = 0
-        info = ''
+        info = 'Звонок старосты '
         if self.progress <= -25:
             # bad
+            info += '(отрицательный)'
             mood = -self.inspired / 2
             progress = 5
         elif self.progress <= 50:
             # normal
+            info += '(нейтральный)'
             mood = -1
             progress = 1
         else:
             # good
+            info += '(положительный)'
             mood = self.inspired / 2
             progress = 5
         # пока оставляю без изменения второе событие
-        return quest.Quest('Звонок старосты', 'Ответить', 
-                      {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0}, 
-                      'Игнорировать', 
-                      {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
-                      self.xp, 0)
+        return quest.Quest(info, 'Ответить', 
+            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0}, 
+            'Игнорировать', 
+            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
+            self.xp, 0)
 
     def inspiredCall(self):
         jobSelect = randint(0, 4)
