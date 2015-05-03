@@ -90,26 +90,26 @@ job_list = [
     #       xp, duration)
     # Значения mood1,2, progress1,2 и др. являются коэффициентами (!),
     # реальное значение изменений зависит от текущего состояния студента
-    Quest('Пары',
+    Quest('пары',
           'Посетить',    {'mood':  0, 'progress':  1, 'satiety':  0, 'finances':  0},
           'Пропустить',  {'mood':  1, 'progress': -1, 'satiety':  0, 'finances':  0},
-           30, 3),
-    Quest('Курсовая',
+           30, 3, 'Пора и поучиться'),
+    Quest('курсовую',
           'Сделать',     {'mood': -1, 'progress':  3, 'satiety': -1, 'finances':  0},
           'Купить',      {'mood':  1, 'progress':  3, 'satiety':  0, 'finances': -2},
-           50, 5),
-    Quest('Развлечение',
+           50, 5, 'Hate this'),
+    Quest('',
           'Играться',    {'mood':  2, 'progress':  0, 'satiety': -1, 'finances':  0},
           'Прогуляться', {'mood':  3, 'progress':  0, 'satiety': -1, 'finances': -1},
-           30, 3),
-    Quest('Еда',
+           30, 3, 'I love it!'),
+    Quest('еду',
           'Приготовить', {'mood':  1, 'progress':  0, 'satiety':  2, 'finances':  0},
           'Заказать',    {'mood':  3, 'progress':  0, 'satiety':  2, 'finances': -1},
-           10, 1),
-    Quest('Добыть денег',
-          'Работать',    {'mood':  1, 'progress': -1, 'satiety': -1, 'finances':  3},
+           10, 1, 'omnomnom'),
+    Quest('денег',
+          'Работать ради',    {'mood':  1, 'progress': -1, 'satiety': -1, 'finances':  3},
           'Одолжить',    {'mood': -1, 'progress':  0, 'satiety':  0, 'finances':  3},
-           50, 5)
+           50, 5, 'no money - no honey')
 ]
 
 def generate(student):
@@ -119,5 +119,4 @@ def generate(student):
     # учитываем состояние студента,
     # учитываем simulator.counter
     quest = deepcopy(choice(job_list))
-    print('started quest: {}'.format(quest.name))
     return quest

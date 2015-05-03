@@ -52,9 +52,9 @@ class Student:
             None
     """
     def __str__(self):
-        fmt_str = 'student: mood = {}, progress = {}, satiety = {}, finances = {}; quest: {} [{}]'
+        fmt_str = 'student: mood = {}, progress = {}, satiety = {}, finances = {} [{}]'
         return fmt_str.format(self.mood, self.progress, self.satiety, self.finances,
-            self.quest.name, self.quest.duration)
+            self.quest.duration)
 
     def change(self, vector):
         for i in vector:
@@ -98,19 +98,20 @@ class Student:
             ]
             chance = random()
             # подобрать вероятность для случайных событий
-            if chance <= 0.5:
-                self.quest = self.captainCall()
-            elif chance <= 0.1:
+            if chance <= 0.05:
                 self.quest = self.inspiredCall()
+            elif chance <= 0.2:
+                self.quest = self.captainCall()
             else:
                 self.quest = quest.generate(st)
-                self.choice = quest.auto_choice(st, self.quest)
-                buffer_str = 'Студент выбирает {} вариант решения: {}'
-                if self.choice:
-                    buffer_str = buffer_str.format('первый', self.quest.one_name)
-                else:
-                    buffer_str = buffer_str.format('второй', self.quest.two_name)
-                print(buffer_str)
+            self.choice = quest.auto_choice(st, self.quest)
+            fmt_str = '{} {}'
+            if self.choice:
+                fmt_str = fmt_str.format(self.quest.one_name, self.quest.name)
+            else:
+                fmt_str = fmt_str.format(self.quest.two_name, self.quest.name)
+            print(fmt_str)
+            print('* {} *'.format(self.quest.info))
         # вывод информации о студенте в текущий момент времени
         print(str(self))
 
@@ -121,53 +122,53 @@ class Student:
 
     def captainCall(self):
         mood = progress = satiety = 0
-        info = 'Звонок старосты '
+        name = 'звонок старосты '
         if self.progress <= -25:
             # bad
-            info += '(отрицательный)'
+            info = 'вы плохо учились'
             mood = -self.inspired / 2
             progress = 5
         elif self.progress <= 50:
             # normal
-            info += '(нейтральный)'
+            info = 'ошиблась номером'
             mood = -1
             progress = 1
         else:
             # good
-            info += '(положительный)'
+            info = 'пришла стипендия'
             mood = self.inspired / 2
             progress = 5
         # пока оставляю без изменения второе событие
-        return quest.Quest(info, 'Ответить',
+        return quest.Quest(name, 'Ответить на',
             {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
             'Игнорировать',
             {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
-            self.xp, 0)
+            self.xp, 1, info)
 
     def inspiredCall(self):
         jobSelect = randint(0, 4)
         mood = progress = satiety = finances = 0
-        info = ''
+        name = 'Вдохновение'
         if jobSelect == 0:
             # mood
             mood = self.inspired
-            info = '*вас пропёрло на хорошое настроение*'
+            info = 'вас пропёрло на хорошое настроение'
         elif jobSelect == 1:
             # progress
             progress = self.inspired
-            info = '*вас посетило вдохновение*'
+            info = 'вас посетило вдохновение'
         elif jobSelect == 2:
             # satiety
             satiety = self.inspired
-            info = '*вы очень хоршо покушали*'
-        elif jobSelect == 3:
+            info = 'вы очень хорошо покушали'
+        else:
             # finances
             finances = self.inspired
             mood = self.inspired / 2
-            info = '*вы нашли N рублей*'
+            info = 'вы нашли N рублей'
         # пока оставляю без изменения второе событие
-        return quest.Quest(info, 'Принятие',
-            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
-            'Игнорирование',
-            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
-            self.xp, 0)
+        return quest.Quest(name, '',
+            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': finances},
+            '',
+            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': finances},
+            self.xp, 1, info)
