@@ -22,7 +22,6 @@ class Simulator:
         # инициализация симулятора
         self.timerStep = step
         signal.signal(signal.SIGALRM, self.step)
-        signal.setitimer(signal.ITIMER_REAL, step, step)
 
     """
         назнчение: функция включения симуляции
