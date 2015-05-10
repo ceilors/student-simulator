@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Test Page</title>
+    </head>
+    <body>
+        Настроение: {{param.mood}}<br>
+        Прогресс: {{param.progress}}<br>
+        Сытость: {{param.satiety}}<br>
+        Финансы: {{param.finances}}<br>
+    </body>
+    <script type='text/javascript'>
+        function reloader() {
+            location.reload();
+        }
+        setInterval("reloader()", 1000);
+    </script>
+</html>
