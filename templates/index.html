@@ -8,10 +8,14 @@
         Сытость: {{param.satiety}}<br>
         Финансы: {{param.finances}}<br>
     </body>
-    <script type='text/javascript'>
+    <form method="post" action="/">
+        <input name="cmd" type="submit" value="start">
+        <input name="cmd" type="submit" value="stop">
+    </form>
+<!--     <script type='text/javascript'>
         function reloader() {
             location.reload();
         }
         setInterval("reloader()", 1000);
-    </script>
+    </script> -->
 </html>

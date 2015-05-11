@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+import flask
 import simulator
 import student
 
@@ -9,7 +9,7 @@ st = student.Student()
 """ append student to simulator """
 sm.appendObject(st, 1)
 """ init flask """
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 def getParamList():
     return {
@@ -19,18 +19,14 @@ def getParamList():
         'finances': int(st.finances)
     }
 
-@app.route('/cmd/<command>')
-def cmd(command):
+@app.route('/', methods=['POST'])
+def index():
+    command = flask.request.form['cmd']
     if command == 'start':
         sm.start()
     elif command == 'stop':
         sm.stop()
-    return render_template('index.html', param=getParamList())
-
-@app.route('/')
-@app.route('/index')
-def index():
-    return render_template('index.html', param=getParamList())
+    return flask.render_template('index.html', param=getParamList())
 
 if __name__ == '__main__':
     """ run flask """
