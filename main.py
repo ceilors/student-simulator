@@ -20,12 +20,16 @@ def getParamList():
     }
 
 @app.route('/', methods=['POST'])
-def index():
+def cmd():
     command = flask.request.form['cmd']
     if command == 'start':
         sm.start()
     elif command == 'stop':
         sm.stop()
+    return flask.render_template('index.html', param=getParamList())
+
+@app.route('/')
+def index():
     return flask.render_template('index.html', param=getParamList())
 
 if __name__ == '__main__':
