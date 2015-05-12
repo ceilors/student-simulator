@@ -23,7 +23,7 @@ class Collector:
             'satiety': int(st.satiety),
             'finances': int(st.finances)
         })
-        if len(self.data) >= 20:
+        if len(self.data) > 20:
             self.data = self.data[1:]
     def getData(self):
         return self.data
