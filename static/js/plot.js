@@ -10,9 +10,18 @@ function replot() {
     height = 500 - margin.top - margin.bottom;
     var tick_fn = function ( d ) { return d.tick; }
     //Create the Scale we will use for the Axis
-    var axisScale = d3.scale.linear()
-        .domain([d3.min(data, tick_fn), d3.max(data, tick_fn)])
-        .range([0, width]);
+    var axisScale;
+    length = data.length - 1;
+    tick = data[length]['tick'];
+    if (tick <= length) {
+        axisScale = d3.scale.linear()
+            .domain([0, 20])
+            .range([0, width]);
+    } else {
+        axisScale = d3.scale.linear()
+            .domain([d3.min(data, tick_fn), d3.max(data, tick_fn)])
+            .range([0, width]);
+    }
     var yaxisScale = d3.scale.linear()
         .domain([-100, 100])
         .range([ height, 0]);
