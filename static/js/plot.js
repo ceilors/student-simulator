@@ -1,9 +1,9 @@
 function replot() {
-    # get JSON data
+    // load json data
     $.getJSON('/json/graph', {}, function(json) {
         data = json;
     });
-    # remove old svg container
+    // remove old svg container
     d3.select("svg").remove();
     var margin = {top: 30, right: 20, bottom: 70, left: 50},
     width = 600 - margin.left - margin.right,
@@ -22,8 +22,8 @@ function replot() {
     var yAxis = d3.svg.axis()
         .scale(yaxisScale)
         .orient("left");
-    var svgContainer = d3.select("body").
-        append("svg")
+    var svgContainer = d3.select("body")
+        .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
