@@ -19,6 +19,7 @@ class Student:
     quest = quest.Quest()
     # вариант решения задания
     choice = 0
+    log = None
     # константы
     xp = 50
     inspired = 20
@@ -35,7 +36,8 @@ class Student:
         выходные параметры:
             None
     """
-    def __init__(self, mood=0, progress=0, satiety=0, finances=0, quest=quest, choice=0):
+    def __init__(self, log, mood=0, progress=0, satiety=0, finances=0, quest=quest, choice=0):
+        self.log = log
         self.mood = mood
         self.progress = progress
         self.satiety = satiety
@@ -110,10 +112,9 @@ class Student:
                 fmt_str = fmt_str.format(self.quest.one_name, self.quest.name)
             else:
                 fmt_str = fmt_str.format(self.quest.two_name, self.quest.name)
-            print(fmt_str)
-            print('* {} *'.format(self.quest.info))
+            self.log.write('{}\n* {} *\n'.format(fmt_str, self.quest.info))
         # вывод информации о студенте в текущий момент времени
-        print(str(self))
+        self.log.write(str(self)+'\n')
 
     """
         добавить функцию внешних факторов влияющую на систему

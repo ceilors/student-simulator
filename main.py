@@ -2,10 +2,11 @@ import flask
 import simulator
 import student
 
+log = open('output.log', 'w')
 """ main simulator class """
-sm = simulator.Simulator(1)
+sm = simulator.Simulator(log, 1)
 """ main student class """
-st = student.Student()
+st = student.Student(log)
 """ append student to simulator """
 sm.appendObject(st, 1)
 """ init flask """
@@ -70,3 +71,4 @@ def index():
 if __name__ == '__main__':
     """ run flask """
     app.run(debug=True)
+    log.close()

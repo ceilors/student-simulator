@@ -10,6 +10,7 @@ class Simulator:
     counter = 0
     # список объектов симуляции
     objList = []
+    log = None
 
     """
         назначение: инициализации класса
@@ -18,9 +19,10 @@ class Simulator:
         выходные параметры:
             None
     """
-    def __init__(self, step=1):
+    def __init__(self, log, step=1):
         # инициализация симулятора
         self.timerStep = step
+        self.log = log
         signal.signal(signal.SIGALRM, self.step)
 
     """
@@ -80,7 +82,8 @@ class Simulator:
         # ожидаем выполнение последнего потока
         thread.join()
         system_time = time.strftime('%D %H:%M:%S', time.localtime())
-        print('[info] simulation time {} [{}]'.format(self.counter, system_time))
+        self.log.write('[info] simulation time {} [{}]\n'.format(self.counter, system_time))
+        self.log.flush()
         self.counter += 1
 
 """
