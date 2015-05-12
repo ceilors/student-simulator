@@ -4,30 +4,36 @@
         <title>Test Page</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/d3.js" charset="utf-8"></script>
+        <script src="js/jquery.js" charset="utf-8"></script>
     </head>
     <body>
-        Счётчик: {{param.tick}}<br>
-        Настроение: {{param.mood}}<br>
-        Прогресс: {{param.progress}}<br>
-        Сытость: {{param.satiety}}<br>
-        Финансы: {{param.finances}}<br><br>
-        Событие: {{param.status}}<br>
-        Продолжительность: {{param.duration}}
+        Счётчик: <span id="tick"></span><br>
+        Настроение: <span id="mood"></span><br>
+        Прогресс: <span id="progress"></span><br>
+        Сытость: <span id="satiety"></span><br>
+        Финансы: <span id="finances"></span><br><br>
+        Событие: <span id="status"></span><br>
+        Продолжительность: <span id="duration"></span>
         <form method="post" action="/">
             <input name="cmd" type="submit" value="start">
             <input name="cmd" type="submit" value="stop">
             <input name="cmd" type="submit" value="reset">
         </form>
         <div id="graph" class="aGraph" style="position:absolute;top:20pxleft:400; float:left"></div>
+        <script>
+            function reloader() {
+                $.getJSON('/json/student', {}, function(data) {
+                    $("#tick").text(data.tick);
+                    $("#mood").text(data.mood);
+                    $("#progress").text(data.progress);
+                    $("#satiety").text(data.satiety);
+                    $("#finances").text(data.finances);
+                    $("#status").text(data.status);
+                    $("#duration").text(data.duration);
+                });
+            }
+            setInterval(reloader, 1000)
+        </script>
     </body>
-    <script type="text/javascript">
-        var data = {{ data|safe }}
-    </script>
     <script src="js/plot.js"></script>
-    <script type='text/javascript'>
-        function reloader() {
-            window.location=window.location;
-        }
-        setInterval("reloader()", 1000);
-    </script>
 </html>
