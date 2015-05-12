@@ -9,10 +9,13 @@
         Настроение: {{param.mood}}<br>
         Прогресс: {{param.progress}}<br>
         Сытость: {{param.satiety}}<br>
-        Финансы: {{param.finances}}<br>
+        Финансы: {{param.finances}}<br><br>
+        Событие: {{param.status}}<br>
+        Продолжительность: {{param.duration}}
         <form method="post" action="/">
             <input name="cmd" type="submit" value="start">
             <input name="cmd" type="submit" value="stop">
+            <input name="cmd" type="submit" value="reset">
         </form>
         <div id="graph" class="aGraph" style="position:absolute;top:20pxleft:400; float:left"></div>
     </body>

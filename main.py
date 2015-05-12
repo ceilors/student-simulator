@@ -29,12 +29,16 @@ class Collector:
         return self.data
 
 def getParamList():
+    quest = st.quest.one_name if st.choice == 0 else st.quest.two_name
+    quest += ' ' + st.quest.name
     return {
         'tick': int(sm.counter),
         'mood': int(st.mood),
         'progress': int(st.progress),
         'satiety': int(st.satiety),
-        'finances': int(st.finances)
+        'finances': int(st.finances),
+        'status': quest,
+        'duration': st.quest.duration
     }
 
 """ init data collector """
@@ -48,7 +52,9 @@ def cmd():
         collect.append()
     elif command == 'stop':
         sm.stop()
-    return flask.render_template('index.html', param=getParamList(), 
+    elif command == 'reset':
+        st.mood = st.progress = st.satiety = st.finances = 0
+    return flask.render_template('index.html', param=getParamList(),
         data=flask.json.dumps(collect.getData()))
 
 @app.route('/json')
@@ -58,7 +64,7 @@ def json_data():
 @app.route('/')
 def index():
     collect.append()
-    return flask.render_template('index.html', param=getParamList(), 
+    return flask.render_template('index.html', param=getParamList(),
         data=flask.json.dumps(collect.getData()))
 
 if __name__ == '__main__':
