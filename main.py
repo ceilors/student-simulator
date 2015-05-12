@@ -49,23 +49,23 @@ def cmd():
     command = flask.request.form['cmd']
     if command == 'start':
         sm.start()
-        collect.append()
     elif command == 'stop':
         sm.stop()
     elif command == 'reset':
         st.mood = st.progress = st.satiety = st.finances = 0
-    return flask.render_template('index.html', param=getParamList(),
-        data=flask.json.dumps(collect.getData()))
+    return flask.render_template('index.html')
 
-@app.route('/json')
-def json_data():
-    return flask.json.dumps(collect.getData())
+@app.route('/json/<param>')
+def json_data(param):
+    if param == 'student':
+        return flask.jsonify(getParamList())
+    elif param == 'graph':
+        collect.append()
+        return flask.json.dumps(collect.getData())
 
 @app.route('/')
 def index():
-    collect.append()
-    return flask.render_template('index.html', param=getParamList(),
-        data=flask.json.dumps(collect.getData()))
+    return flask.render_template('index.html')
 
 if __name__ == '__main__':
     """ run flask """
