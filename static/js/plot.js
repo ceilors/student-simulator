@@ -6,8 +6,9 @@ function replot() {
     // remove old svg container
     d3.select("svg").remove();
     var margin = {top: 30, right: 20, bottom: 70, left: 50},
-    width = 600 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    div = $('#graph'),
+    width = div.width() - margin.left - margin.right,
+    height = div.height() - margin.top - margin.bottom;
     var tick_fn = function ( d ) { return d.tick; }
     //Create the Scale we will use for the Axis
     var axisScale;
@@ -31,7 +32,7 @@ function replot() {
     var yAxis = d3.svg.axis()
         .scale(yaxisScale)
         .orient("left");
-    var svgContainer = d3.select("body")
+    var svgContainer = d3.select("#graph")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)

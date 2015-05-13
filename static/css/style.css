@@ -1,20 +1,57 @@
+/* body style */
+body {
+    width: 800px;
+    border: 1px solid green;
+    margin: 0px auto;
+    padding: 20px;
+}
+
+/* student image */
+#image img {
+    width: 150px;
+}
+
+#image {
+    display: inline-block;
+}
+
+/* main window */
+#info {
+    display: inline-block;
+    margin-left: 50px;
+}
+
+#parameters {
+    display: block;
+}
+
+#quest {
+    display: block;
+}
+
+#graph {
+    width: 400px;
+    height: 300px;
+}
+
+/* buttons */
+input[type=submit] {
+    width: 100px;
+    border: 1.2px solid black;
+    background: #ddd;
+}
+
+/* graph style */
 path {
     stroke-width: 1;
     fill: none;
 }
+
 .axis {
     shape-rendering: crispEdges;
 }
-.x.axis line {
-    stroke: lightgrey;
-}
-.x.axis .minor {
-    stroke-opacity: .5;
-}
-.x.axis path {
-    display: none;
-}
-.y.axis line, .y.axis path {
+
+.x.axis path, .x.axis line, .y.axis line, .y.axis path {
     fill: none;
     stroke: #000;
 }
