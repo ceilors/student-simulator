@@ -20,6 +20,7 @@ class Student:
     # вариант решения задания
     choice = 0
     log = None
+    duration = 0
     # константы
     xp = 50
     inspired = 20
@@ -84,8 +85,8 @@ class Student:
         self.mood -= 1
         self.satiety -= 1
         # продолжение квеста или же выбор нового
-        self.quest.duration -= 1
-        if self.quest.duration <= 0:
+        self.duration += 1
+        if self.quest.duration == self.duration:
             if self.choice:
                 self.change(self.quest.one_impact)
             else:
@@ -113,6 +114,7 @@ class Student:
             else:
                 fmt_str = fmt_str.format(self.quest.two_name, self.quest.name)
             self.log.write('{}\n* {} *\n'.format(fmt_str, self.quest.info))
+            self.duration = 0
         # вывод информации о студенте в текущий момент времени
         self.log.write(str(self)+'\n')
 

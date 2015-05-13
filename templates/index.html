@@ -3,8 +3,10 @@
         <meta charset="UTF-8"> 
         <title>Test Page</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
         <script src="js/d3.js" charset="utf-8"></script>
         <script src="js/jquery.js" charset="utf-8"></script>
+        <script src="js/jquery-ui.js" charset="utf-8"></script>
     </head>
     <body>
         <div id="image">
@@ -20,6 +22,7 @@
             <div id="quest"> 
                 Событие: <span id="status"></span><br>
                 Продолжительность: <span id="duration"></span>
+                <div id="progressbar"></div>
             </div>
             <div id="graph" class="aGraph"></div>
             Счётчик: <span id="tick"></span><br>
@@ -42,6 +45,10 @@
                     $("#finances").text(data.finances);
                     $("#status").text(data.status);
                     $("#duration").text(data.duration);
+                    $("#progressbar").progressbar({
+                        value: data.completed,
+                        max: data.duration
+                    })
                 });
             }
             setInterval(reloader, 1000)

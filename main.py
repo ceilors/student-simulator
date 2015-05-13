@@ -11,11 +11,10 @@ st = student.Student(log)
 sm.appendObject(st, 1)
 """ init flask """
 app = flask.Flask(__name__, static_url_path='')
-""" redraw parameter """
-redraw = False
 
 class Collector:
     data = []
+    redraw = False
     def __init__(self):
         self.append()
     def append(self):
@@ -41,7 +40,8 @@ def getParamList():
         'satiety': int(st.satiety),
         'finances': int(st.finances),
         'status': quest,
-        'duration': st.quest.duration
+        'duration': st.quest.duration,
+        'completed': st.duration
     }
 
 """ init data collector """
@@ -50,16 +50,17 @@ collect = Collector()
 @app.route('/', methods=['POST'])
 def cmd():
     command = flask.request.form['cmd']
+    print(command)
     if command == 'Старт':
-        redraw = True
+        collect.redraw = True
         sm.start()
     elif command == 'Пауза':
-        redraw = False
+        collect.redraw = False
         sm.stop()
     elif command == 'Сброс':
         st.mood = st.progress = st.satiety = st.finances = 0
     elif command == 'Стоп':
-        redraw = False
+        collect.redraw = False
         st.mood = st.progress = st.satiety = st.finances = sm.counter = 0
         collect.data = []
         sm.stop()
@@ -70,7 +71,8 @@ def json_data(param):
     if param == 'student':
         return flask.jsonify(getParamList())
     elif param == 'graph':
-        if redraw:
+        print('redraw = {}'.format(collect.redraw))
+        if collect.redraw:
             collect.append()
         return flask.json.dumps(collect.getData())
 
