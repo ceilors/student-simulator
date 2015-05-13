@@ -67,6 +67,10 @@ def cmd():
         st.mood = st.progress = st.satiety = st.finances = sm.counter = 0
         collect.data = []
         sm.stop()
+    elif command == '>>':
+        sm.update(0.5)
+    elif command == '<<':
+        sm.update(2.0)
     return flask.render_template('index.html')
 
 @app.route('/json/<param>')

@@ -29,7 +29,7 @@ class Simulator:
         signal.signal(signal.SIGALRM, self.step)
 
     """
-        назнчение: функция включения симуляции
+        назначение: функция включения симуляции
         входные параметры:
             None
         выходные параметры:
@@ -39,7 +39,18 @@ class Simulator:
         signal.setitimer(signal.ITIMER_REAL, self.timerStep, self.timerStep)
 
     """
-        назнчение: функция остановки симуляции
+        назнчение: функция обновления таймера симуляции
+        входные параметры:
+            factor        -- множитель шага таймера
+        выходные параметры:
+            None
+    """
+    def update(self, factor):
+        self.timerStep *= factor
+        signal.setitimer(signal.ITIMER_REAL, self.timerStep, self.timerStep)
+
+    """
+        назначение: функция остановки симуляции
         входные параметры:
             None
         выходные параметры:
