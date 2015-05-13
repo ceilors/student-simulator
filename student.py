@@ -81,9 +81,15 @@ class Student:
         # код отвечающий за изменение параметров 
         # в соответствии с интервалом времени
         
-        # каждый шаг студенту становится скучнее и голоднее
-        self.mood -= 1
-        self.satiety -= 1
+        # с вероятностью 25% студенту станет скучнее
+        if randint(0, 3) == 1:
+            self.mood -= 1
+        elif not randint(0, 2):
+            # если не стало, то с вероятностью 33% ему станет веселее
+            self.mood += 1
+        # с вероятностью 33% студенту станет голоднее
+        if randint(0, 2) == 1:
+            self.satiety -= 1
         # продолжение квеста или же выбор нового
         self.duration += 1
         if self.quest.duration < self.duration:
@@ -143,9 +149,9 @@ class Student:
             progress = 5
         # пока оставляю без изменения второе событие
         return quest.Quest(name, 'Ответить на',
-            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
+            {'mood':  mood, 'progress':  progress, 'satiety': 0, 'finances': 0},
             'Игнорировать',
-            {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': 0},
+            {'mood': -mood, 'progress': -progress, 'satiety': 0, 'finances': 0},
             self.xp, 1, info)
 
     def inspiredCall(self):

@@ -72,8 +72,20 @@ class Quest:
             self.one_name, self.one_impact, self.two_name, self.two_impact)
 
 def auto_choice(student, quest):
-    st_one = abs(sum(list(map(lambda i, j: i + j, student, quest.one_impact.values()))))
-    st_two = abs(sum(list(map(lambda i, j: i + j, student, quest.two_impact.values()))))
+    one = [
+        quest.one_impact['mood'],
+        quest.one_impact['progress'],
+        quest.one_impact['satiety'],
+        quest.one_impact['finances']
+    ]
+    two = [
+        quest.two_impact['mood'],
+        quest.two_impact['progress'],
+        quest.two_impact['satiety'],
+        quest.two_impact['finances']
+    ]
+    st_one = abs(sum(list(map(lambda i, j: (i + j) ** 2, student, one))))
+    st_two = abs(sum(list(map(lambda i, j: (i + j) ** 2, student, two))))
     if st_one > st_two:
         # student choses second type
         return 0
@@ -91,24 +103,24 @@ job_list = [
     # Значения mood1,2, progress1,2 и др. являются коэффициентами (!),
     # реальное значение изменений зависит от текущего состояния студента
     Quest('пары',
-          'Посетить',    {'mood':  0, 'progress':  1, 'satiety':  0, 'finances':  0},
-          'Пропустить',  {'mood':  1, 'progress': -1, 'satiety':  0, 'finances':  0},
+          'Посетить',      {'mood':  0, 'progress':  1, 'satiety':  0, 'finances':  0},
+          'Пропустить',    {'mood':  1, 'progress': -1, 'satiety':  0, 'finances':  0},
            30, 3, 'Пора и поучиться'),
     Quest('курсовую',
-          'Сделать',     {'mood': -1, 'progress':  3, 'satiety': -1, 'finances':  0},
-          'Купить',      {'mood':  1, 'progress':  3, 'satiety':  0, 'finances': -2},
+          'Сделать',       {'mood': -1, 'progress':  3, 'satiety': -1, 'finances':  0},
+          'Купить',        {'mood':  1, 'progress':  3, 'satiety':  0, 'finances': -2},
            50, 5, 'Hate this'),
     Quest('',
-          'Играться',    {'mood':  2, 'progress':  0, 'satiety': -1, 'finances':  0},
-          'Прогуляться', {'mood':  3, 'progress':  0, 'satiety': -1, 'finances': -1},
+          'Играться',      {'mood':  2, 'progress':  0, 'satiety': -1, 'finances':  0},
+          'Прогуляться',   {'mood':  3, 'progress':  0, 'satiety': -1, 'finances': -1},
            30, 3, 'I love it!'),
     Quest('еду',
-          'Приготовить', {'mood':  1, 'progress':  0, 'satiety':  2, 'finances':  0},
-          'Заказать',    {'mood':  3, 'progress':  0, 'satiety':  2, 'finances': -1},
+          'Приготовить',   {'mood':  1, 'progress':  0, 'satiety':  2, 'finances':  0},
+          'Заказать',      {'mood':  3, 'progress':  0, 'satiety':  2, 'finances': -1},
            10, 1, 'omnomnom'),
     Quest('денег',
-          'Работать ради',    {'mood':  1, 'progress': -1, 'satiety': -1, 'finances':  3},
-          'Одолжить',    {'mood': -1, 'progress':  0, 'satiety':  0, 'finances':  3},
+          'Работать ради', {'mood':  1, 'progress': -1, 'satiety': -1, 'finances':  3},
+          'Одолжить',      {'mood': -1, 'progress':  0, 'satiety':  0, 'finances':  3},
            50, 5, 'no money - no honey')
 ]
 
