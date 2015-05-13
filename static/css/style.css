@@ -1,7 +1,6 @@
 /* body style */
 body {
     width: 800px;
-    border: 1px solid green;
     margin: 0px auto;
     padding: 20px;
 }
@@ -32,6 +31,11 @@ body {
 #graph {
     width: 400px;
     height: 300px;
+}
+
+#progressbar {
+    width: 400px;
+    height: 10px;
 }
 
 /* buttons */

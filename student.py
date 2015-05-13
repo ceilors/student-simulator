@@ -86,7 +86,7 @@ class Student:
         self.satiety -= 1
         # продолжение квеста или же выбор нового
         self.duration += 1
-        if self.quest.duration == self.duration:
+        if self.quest.duration < self.duration:
             if self.choice:
                 self.change(self.quest.one_impact)
             else:

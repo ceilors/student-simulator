@@ -50,7 +50,6 @@ collect = Collector()
 @app.route('/', methods=['POST'])
 def cmd():
     command = flask.request.form['cmd']
-    print(command)
     if command == 'Старт':
         collect.redraw = True
         sm.start()
@@ -71,7 +70,6 @@ def json_data(param):
     if param == 'student':
         return flask.jsonify(getParamList())
     elif param == 'graph':
-        print('redraw = {}'.format(collect.redraw))
         if collect.redraw:
             collect.append()
         return flask.json.dumps(collect.getData())

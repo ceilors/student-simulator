@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8"> 
-        <title>Test Page</title>
+        <title>Student</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
         <script src="js/d3.js" charset="utf-8"></script>
@@ -21,11 +21,9 @@
             </div>
             <div id="quest"> 
                 Событие: <span id="status"></span><br>
-                Продолжительность: <span id="duration"></span>
                 <div id="progressbar"></div>
             </div>
             <div id="graph" class="aGraph"></div>
-            Счётчик: <span id="tick"></span><br>
             <div id="control">
                 <form method="post" action="/">
                     <input name="cmd" type="submit" value="Старт">
@@ -38,17 +36,16 @@
         <script>
             function reloader() {
                 $.getJSON("/json/student", {}, function(data) {
-                    $("#tick").text(data.tick);
                     $("#mood").text(data.mood);
                     $("#progress").text(data.progress);
                     $("#satiety").text(data.satiety);
                     $("#finances").text(data.finances);
                     $("#status").text(data.status);
-                    $("#duration").text(data.duration);
                     $("#progressbar").progressbar({
                         value: data.completed,
                         max: data.duration
                     })
+                    $("title").text("Student - day " + Math.floor(data.tick / 24 ));
                 });
             }
             setInterval(reloader, 1000)
