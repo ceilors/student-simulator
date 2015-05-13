@@ -26,6 +26,7 @@ body {
 
 #quest {
     display: block;
+    text-align: center;
 }
 
 #graph {

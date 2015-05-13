@@ -8,6 +8,9 @@ class Simulator:
     timerStep = 1
     # счётчик симуляционных тактов
     counter = 0
+    hour = 0
+    day = 1
+    month = 9
     # список объектов симуляции
     objList = []
     log = None
@@ -85,6 +88,24 @@ class Simulator:
         self.log.write('[info] simulation time {} [{}]\n'.format(self.counter, system_time))
         self.log.flush()
         self.counter += 1
+        self.hour = self.counter % 24
+        if self.hour == 0:
+            self.day += 1
+            if self.month in [1, 3, 5, 7, 8, 10, 12]:
+                if self.day > 31:
+                    self.month += 1
+                    self.day = 1
+                    if self.month > 12:
+                        self.month = 1
+            elif self.month in [4, 6, 9, 11]:
+                if self.day > 30:
+                    self.month += 1
+                    self.day = 1
+            else:
+                if self.day > 28:
+                    self.month += 1
+                    self.day = 1
+
 
 """
     функция обработки объектов симуляции в отдельных потоках

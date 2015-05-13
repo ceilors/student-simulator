@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8"> 
-        <title>Student</title>
+        <title>Симулятор студента</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
         <script src="js/d3.js" charset="utf-8"></script>
@@ -20,7 +20,7 @@
                 Финансы: <span id="finances"></span><br><br>
             </div>
             <div id="quest"> 
-                Событие: <span id="status"></span><br>
+                <span id="status"></span><br>
                 <div id="progressbar"></div>
             </div>
             <div id="graph" class="aGraph"></div>
@@ -45,7 +45,7 @@
                         value: data.completed,
                         max: data.duration
                     })
-                    $("title").text("Student - day " + Math.floor(data.tick / 24 ));
+                    $("title").text(data.day + ' ' + data.month + ', ' + data.hour + 'ч');
                 });
             }
             setInterval(reloader, 1000)

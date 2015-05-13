@@ -33,8 +33,12 @@ class Collector:
 def getParamList():
     quest = st.quest.one_name if st.choice == 0 else st.quest.two_name
     quest += ' ' + st.quest.name
+    months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+              'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
     return {
-        'tick': int(sm.counter),
+        'hour': int(sm.hour),
+        'day': int(sm.day),
+        'month': months[int(sm.month) - 1],
         'mood': int(st.mood),
         'progress': int(st.progress),
         'satiety': int(st.satiety),
