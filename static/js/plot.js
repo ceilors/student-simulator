@@ -59,11 +59,16 @@ function replot() {
     .x( function( d, i ) { return axisScale( d.tick ); })
     .y( function( d, i ) { return yaxisScale( d.finances ); })
     svgContainer.append("svg:path").attr("class", "line")
-        .attr("stroke", "green").attr("d", line_mood(data));
+        .attr("stroke", "green")
+        .style("stroke-dasharray", ("5, 5"))
+        .attr("d", line_mood(data));
     svgContainer.append("svg:path").attr("class", "line")
-        .attr("stroke", "blue").attr("d", line_progress(data));
+        .attr("stroke", "blue")
+        .style("stroke-dasharray", ("10, 4"))
+        .attr("d", line_progress(data));
     svgContainer.append("svg:path").attr("class", "line")
-        .attr("stroke", "red").attr("d", line_satiety(data));
+        .attr("stroke", "red")
+        .attr("d", line_satiety(data));
     svgContainer.append("svg:path").attr("class", "line")
         .attr("stroke", "black").attr("d", line_finances(data));
 }
