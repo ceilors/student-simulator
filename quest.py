@@ -9,7 +9,7 @@ import simulator
     значение границы, множителя: [-100, 10], [100, 0.1]
 """
 def multiplier(param):
-    return -4.95 * param + 5.5
+    return -0.0495 * param + 5.5
 
 class Quest:
     """
@@ -23,7 +23,7 @@ class Quest:
     name = 'demo-quest'
     # первый вариант выполнения задания
     #   влияние задания на студента
-    impact_one = {
+    one_impact = {
         'mood':     0,
         'progress': 0,
         'satiety':  0,
@@ -33,7 +33,7 @@ class Quest:
     one_name = 'first'
     # первый вариант выполнения задания
     #   влияние задания на студента
-    impact_two = {
+    two_impact = {
         'mood':     0,
         'progress': 0,
         'satiety':  0,
@@ -88,14 +88,14 @@ class Quest:
     """
     def multParam(self, student):
         mood, progress, satiety, finances = student
-        self.impact_one['mood'] *= multiplier(mood)
-        self.impact_one['progress'] *= multiplier(progress)
-        self.impact_one['satiety'] *= multiplier(satiety)
-        self.impact_one['finances'] *= multiplier(finances)
-        self.impact_two['mood'] *= multiplier(mood)
-        self.impact_two['progress'] *= multiplier(progress)
-        self.impact_two['satiety'] *= multiplier(satiety)
-        self.impact_two['finances'] *= multiplier(finances)
+        self.one_impact['mood'] *= multiplier(mood)
+        self.one_impact['progress'] *= multiplier(progress)
+        self.one_impact['satiety'] *= multiplier(satiety)
+        self.one_impact['finances'] *= multiplier(finances)
+        self.two_impact['mood'] *= multiplier(mood)
+        self.two_impact['progress'] *= multiplier(progress)
+        self.two_impact['satiety'] *= multiplier(satiety)
+        self.two_impact['finances'] *= multiplier(finances)
 
     def __str__(self):
         return '{}, {}, {}; {}: {}, {}: {}'.format(self.name, self.xp, self.duration,
