@@ -72,6 +72,8 @@ def cmd():
         sm.stop()
     elif command == '>>':
         sm.update(0.5)
+    elif command == '1.0x':
+        sm.update(1 / sm.timerStep)
     elif command == '<<':
         sm.update(2.0)
     return flask.render_template('index.html')
