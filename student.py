@@ -159,7 +159,7 @@ class Student:
     def inspiredCall(self):
         jobSelect = randint(0, 4)
         mood = progress = satiety = finances = 0
-        name = 'Вдохновение'
+        name = ''
         if jobSelect == 0:
             # mood
             mood = self.inspired
@@ -178,8 +178,8 @@ class Student:
             mood = self.inspired / 2
             info = 'вы нашли N рублей'
         # пока оставляю без изменения второе событие
-        return quest.Quest(name, '',
+        return quest.Quest(name, 'Вдохновение',
             {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': finances},
             '',
             {'mood': mood, 'progress': progress, 'satiety': satiety, 'finances': finances},
-            self.xp, 1, info)
+            self.xp, 1 / self.slowness, info)
