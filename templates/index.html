@@ -22,16 +22,18 @@
             <div id="quest"> 
                 <span id="status"></span><br/>
                 <div id="progressbar"></div>
-                <span id="another"></span>
+                <span id="alter"><a href="/" id="another"></a></span>
             </div>
-            <div id="graph" class="aGraph"></div>
+            <div id="graph_wrap">
+                <div id="graph" class="aGraph"></div>
+            </div>
             <div id="control">
                 <form method="post" action="/">
                     <input name="cmd" type="submit" value="Старт">
                     <input name="cmd" type="submit" value="Пауза">
                     <input name="cmd" type="submit" value="Сброс">
                     <input name="cmd" type="submit" value="Стоп">
-                    <br/><br/>
+                    <br/>
                     <input name="cmd" type="submit" value="<<">
                     <input name="cmd" type="submit" value="1.0x">
                     <input name="cmd" type="submit" value=">>">
@@ -51,6 +53,7 @@
                         max: data.duration
                     })
                     $("title").text(data.day + ' ' + data.month + ', ' + data.hour + 'ч');
+                    $("#another").text(data.another);
                 });
             }
             reloader();
