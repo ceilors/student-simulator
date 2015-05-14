@@ -25,6 +25,10 @@ body {
     height: calc(100% - 40px);
 }
 
+form {
+    margin: 0;
+}
+
 /* list of parameters */
 #parameters {
     width: 100%;
@@ -99,10 +103,10 @@ path {
     border: 1px solid #ccc;
     background: #efefef;
     border-radius: 10px;
-    padding-top: 15px;
+    padding: 15px;
 }
 
-input[type=submit] {
+#control input[type=submit] {
     width: 100px;
     border: 1px solid black;
     background: #ddd;
