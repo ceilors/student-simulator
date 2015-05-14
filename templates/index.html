@@ -27,10 +27,19 @@
                     <td>Финансы: <span id="finances"></span></td>
                 </tr>
             </table>
+            <script>
+                function do_post() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/send'
+                        // none data
+                    });
+                }
+            </script>
             <div id="quest"> 
                 <span id="status"></span><br/>
                 <div id="progressbar"></div><br/>
-                <span id="alter"><a href="/" id="another"></a></span>
+                <span id="alter"><a href="javascript:do_post()" id="another"></a></span>
             </div>
             <div id="graph_wrap">
                 <div id="graph" class="aGraph"></div>

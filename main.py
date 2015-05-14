@@ -78,6 +78,13 @@ def cmd():
         sm.update(2.0)
     return flask.render_template('index.html')
 
+@app.route('/send', methods=['POST'])
+def send():
+    # ignore json data because i hate this shit
+    st.choice = 1 if st.choice == 0 else 0
+    # for normal work
+    return('Ok!')
+
 @app.route('/json/<param>')
 def json_data(param):
     if param == 'student':
