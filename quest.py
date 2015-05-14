@@ -66,7 +66,7 @@ class Quest:
     def __init__(self, name='кнопку "Старт" для начала симуляции',
                        one_name='Нажмите',
                        one={'mood':0,'progress':0,'satiety':0,'finances':0},
-                       two_name='Жмякни',
+                       two_name='Нажмите',
                        two={'mood':0,'progress':0,'satiety':0,'finances':0},
                        xp=0, duration=1, info=''):
         self.name       = name
