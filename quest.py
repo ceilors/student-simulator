@@ -145,12 +145,12 @@ job_list = [
           'Прогуляться',   {'mood':  3, 'progress':  0, 'satiety': -1, 'finances': -1},
            30, 3, 'I love it!'),
     Quest('еду',
-          'Приготовить',   {'mood':  1, 'progress':  0, 'satiety':  2, 'finances':  0},
-          'Заказать',      {'mood':  3, 'progress':  0, 'satiety':  2, 'finances': -1},
+          'Приготовить',   {'mood':  1, 'progress':  0, 'satiety':  2, 'finances': -1},
+          'Заказать',      {'mood':  3, 'progress':  0, 'satiety':  2, 'finances': -2},
            10, 1, 'omnomnom'),
     Quest('денег',
-          'Работать ради', {'mood':  1, 'progress': -1, 'satiety': -1, 'finances':  3},
-          'Одолжить',      {'mood': -1, 'progress':  0, 'satiety':  0, 'finances':  3},
+          'Работать ради', {'mood': -1, 'progress': -1, 'satiety': -1, 'finances':  3},
+          'Одолжить',      {'mood': -1, 'progress': -1, 'satiety':  1, 'finances':  3},
            50, 5, 'no money - no honey')
 ]
 
@@ -167,6 +167,14 @@ def generate(student):
         quest = deepcopy(job_list[1])
     elif finances < -80:
         quest = deepcopy(job_list[4])
+    elif satiety > 80:
+        quest = deepcopy(job_list[2])
+    elif mood > 80:
+        quest = deepcopy(job_list[4])
+    elif progress > 80:
+        quest = deepcopy(job_list[4])
+    elif finances > 80:
+        quest = deepcopy(job_list[3])
     else:
         quest = deepcopy(choice(job_list))
     quest.multParam(student)
