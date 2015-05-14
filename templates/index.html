@@ -7,21 +7,29 @@
         <script src="js/d3.js" charset="utf-8"></script>
         <script src="js/jquery.js" charset="utf-8"></script>
         <script src="js/jquery-ui.js" charset="utf-8"></script>
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,400italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     </head>
     <body>
         <div id="image">
             <img src="img/normal.png">
         </div>
         <div id="info">
-            <div id="parameters">
-                Настроение: <span id="mood"></span><br/>
-                Прогресс: <span id="progress"></span><br/>
-                Сытость: <span id="satiety"></span><br/>
-                Финансы: <span id="finances"></span><br/>
-            </div>
+            <table id="parameters">
+                <tr>
+                    <td colspan="2"><span id="time"></span></td>
+                </tr>
+                <tr>
+                    <td>Настроение: <span id="mood"></span></td>
+                    <td>Прогресс: <span id="progress"></span></td>
+                </tr>
+                <tr>
+                    <td>Сытость: <span id="satiety"></span></td>
+                    <td>Финансы: <span id="finances"></span></td>
+                </tr>
+            </table>
             <div id="quest"> 
                 <span id="status"></span><br/>
-                <div id="progressbar"></div>
+                <div id="progressbar"></div><br/>
                 <span id="alter"><a href="/" id="another"></a></span>
             </div>
             <div id="graph_wrap">
@@ -52,6 +60,7 @@
                         value: data.completed,
                         max: data.duration
                     })
+                    $("#time").text(data.day + ' ' + data.month + ', ' + data.hour + 'ч');
                     $("title").text(data.day + ' ' + data.month + ', ' + data.hour + 'ч');
                     $("#another").text(data.another);
                 });

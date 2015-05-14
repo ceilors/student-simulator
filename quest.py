@@ -63,10 +63,10 @@ class Quest:
         выходные параметры:
             None
     """
-    def __init__(self, name='кнопку "Старт" для начала симуляции',
-                       one_name='Нажмите',
+    def __init__(self, name='',
+                       one_name='',
                        one={'mood':0,'progress':0,'satiety':0,'finances':0},
-                       two_name='Нажмите',
+                       two_name='Нажмите кнопку "Старт" для начала симуляции',
                        two={'mood':0,'progress':0,'satiety':0,'finances':0},
                        xp=0, duration=1, info=''):
         self.name       = name

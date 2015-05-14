@@ -4,6 +4,7 @@ body {
     margin: 0px auto;
     height: 100%;
     font-size: 12pt;
+    font-family: 'PT Sans';
 }
 
 /* student image */
@@ -26,10 +27,15 @@ body {
 
 /* list of parameters */
 #parameters {
-    display: block;
     width: 100%;
     background: #fff;
-    padding: 5px;
+}
+
+#parameters td {
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 /* current quest */
@@ -40,6 +46,7 @@ body {
     padding: 5px 0;
     background: #efefef;
     border-radius: 10px;
+    font-style: italic;
 }
 
 #progressbar {
@@ -55,6 +62,7 @@ body {
 
 #alter a {
     text-decoration: none;
+    font-style: normal;
     color: #f50;
 }
 
@@ -99,4 +107,6 @@ input[type=submit] {
     border: 1px solid black;
     background: #ddd;
     margin: 5px 5px;
+    font-family: inherit;
+    font-size: 10pt;
 }
