@@ -24,6 +24,7 @@ class Student:
     # константы
     xp = 50
     inspired = 20
+    slowness = 3
     
     """
         назначение: инициализации класса
@@ -121,6 +122,7 @@ class Student:
                 fmt_str = fmt_str.format(self.quest.two_name, self.quest.name)
             self.log.write('{}\n* {} *\n'.format(fmt_str, self.quest.info))
             self.duration = 0
+            self.quest.duration *= self.slowness
         # вывод информации о студенте в текущий момент времени
         self.log.write(str(self)+'\n')
 

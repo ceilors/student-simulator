@@ -149,8 +149,8 @@ job_list = [
           'Заказать',      {'mood':  3, 'progress':  0, 'satiety':  2, 'finances': -2},
            10, 1, 'omnomnom'),
     Quest('денег',
-          'Работать ради', {'mood': -1, 'progress': -1, 'satiety': -1, 'finances':  3},
-          'Одолжить',      {'mood': -1, 'progress': -1, 'satiety':  1, 'finances':  3},
+          'Работать ради', {'mood': -2, 'progress': -1, 'satiety': -1, 'finances':  3},
+          'Одолжить',      {'mood': -2, 'progress': -1, 'satiety':  1, 'finances':  3},
            50, 5, 'no money - no honey')
 ]
 
@@ -158,23 +158,31 @@ def generate(student):
     from random import choice
     from copy import deepcopy
     mood, progress, satiety, finances = student
-    # принудительный выбор заданий при достижении границ
+    # принудительный выбор 'усиленных' заданий при достижении границ
     if satiety < -80:
         quest = deepcopy(job_list[3])
+        quest.one_impact['satiety'] = quest.one_impact['satiety'] = 5
     elif mood < -80:
         quest = deepcopy(job_list[2])
+        quest.one_impact['mood'] = quest.one_impact['mood'] = 5
     elif progress < -80:
         quest = deepcopy(job_list[1])
+        quest.one_impact['progress'] = quest.one_impact['progress'] = 5
     elif finances < -80:
         quest = deepcopy(job_list[4])
+        quest.one_impact['finances'] = quest.one_impact['finances'] = 5
     elif satiety > 80:
         quest = deepcopy(job_list[2])
+        quest.one_impact['satiety'] = quest.one_impact['satiety'] = -15
     elif mood > 80:
         quest = deepcopy(job_list[4])
+        quest.one_impact['mood'] = quest.one_impact['mood'] = -15
     elif progress > 80:
         quest = deepcopy(job_list[4])
+        quest.one_impact['progress'] = quest.one_impact['progress'] = -15
     elif finances > 80:
         quest = deepcopy(job_list[3])
+        quest.one_impact['finances'] = quest.one_impact['finances'] = -15
     else:
         quest = deepcopy(choice(job_list))
     quest.multParam(student)

@@ -32,7 +32,9 @@ class Collector:
 
 def getParamList():
     quest = st.quest.one_name if st.choice else st.quest.two_name
+    another = st.quest.two_name if st.choice else st.quest.one_name
     quest += ' ' + st.quest.name
+    another += ' ' + st.quest.name
     months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
               'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
     return {
@@ -45,7 +47,8 @@ def getParamList():
         'finances': round(st.finances),
         'status': quest,
         'duration': st.quest.duration,
-        'completed': st.duration
+        'completed': st.duration,
+        'another': another
     }
 
 """ init data collector """
