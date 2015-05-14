@@ -19,11 +19,11 @@ class Collector:
         self.append()
     def append(self):
         self.data.append({
-            'tick': int(sm.counter),
-            'mood': int(st.mood),
-            'progress': int(st.progress),
-            'satiety': int(st.satiety),
-            'finances': int(st.finances)
+            'tick': sm.counter,
+            'mood': round(st.mood),
+            'progress': round(st.progress),
+            'satiety': round(st.satiety),
+            'finances': round(st.finances)
         })
         if len(self.data) > 20:
             self.data = self.data[1:]
@@ -39,10 +39,10 @@ def getParamList():
         'hour': int(sm.hour),
         'day': int(sm.day),
         'month': months[int(sm.month) - 1],
-        'mood': int(st.mood),
-        'progress': int(st.progress),
-        'satiety': int(st.satiety),
-        'finances': int(st.finances),
+        'mood': round(st.mood),
+        'progress': round(st.progress),
+        'satiety': round(st.satiety),
+        'finances': round(st.finances),
         'status': quest,
         'duration': st.quest.duration,
         'completed': st.duration
