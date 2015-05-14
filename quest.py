@@ -124,11 +124,48 @@ job_list = [
            50, 5, 'no money - no honey')
 ]
 
+"""
+    назначение: функция определения множителя к параметру
+    входные параметры:
+        param        -- параметр студента
+    выходные параметры:
+        множитель
+    значение границы, множителя: [-100, 10], [100, 0.1]
+"""
+def multiplier(param):
+    return -4.95 * param + 5.5
+
+"""
+    назначение: функция переопределения значений квеста в соответствии с параметрами студента
+    входные параметры:
+        quest        -- выбранный квест
+        student      -- параметры студента
+    выходные параметры:
+        None
+"""
+def multParam(quest, student):
+    quest.impact_one['mood'] *= multiplier(student.mood) 
+    quest.impact_one['progress'] *= multiplier(student.progress)
+    quest.impact_one['satiety'] *= multiplier(student.satiety)
+    quest.impact_one['finances'] *= multiplier(student.finances)
+    quest.impact_two['mood'] *= multiplier(student.mood) 
+    quest.impact_two['progress'] *= multiplier(student.progress)
+    quest.impact_two['satiety'] *= multiplier(student.satiety)
+    quest.impact_two['finances'] *= multiplier(student.finances)
+
 def generate(student):
     from random import choice
     from copy import deepcopy
     mood, progress, satiety, finances = student
-    # учитываем состояние студента,
-    # учитываем simulator.counter
-    quest = deepcopy(choice(job_list))
-    return quest
+    # принудительный выбор заданий при достижении границ
+    if satiety < -80:
+        quest = deepcopy(job_list[3])
+    elif mood < -80:
+        quest = deepcopy(job_list[2])
+    elif progress < -80:
+        quest = deepcopy(job_list[1])
+    elif finances < -80:
+        quest = deepcopy(job_list[4])
+    else:
+        quest = deepcopy(choice(job_list))
+    return multPaam(quest, student)
