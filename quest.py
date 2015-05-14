@@ -1,5 +1,16 @@
 import simulator
 
+"""
+    назначение: функция определения множителя к параметру
+    входные параметры:
+        param        -- параметр студента
+    выходные параметры:
+        множитель
+    значение границы, множителя: [-100, 10], [100, 0.1]
+"""
+def multiplier(param):
+    return -4.95 * param + 5.5
+
 class Quest:
     """
         Каждое задание имеет два возможных варианта исхода,
@@ -67,6 +78,25 @@ class Quest:
         self.duration   = duration
         self.info       = info
 
+    """
+        назначение: функция переопределения значений квеста в соответствии с параметрами студента
+        входные параметры:
+            quest        -- выбранный квест
+            student      -- параметры студента
+        выходные параметры:
+            None
+    """
+    def multParam(self, student):
+        mood, progress, satiety, finances = student
+        self.impact_one['mood'] *= multiplier(mood)
+        self.impact_one['progress'] *= multiplier(progress)
+        self.impact_one['satiety'] *= multiplier(satiety)
+        self.impact_one['finances'] *= multiplier(finances)
+        self.impact_two['mood'] *= multiplier(mood)
+        self.impact_two['progress'] *= multiplier(progress)
+        self.impact_two['satiety'] *= multiplier(satiety)
+        self.impact_two['finances'] *= multiplier(finances)
+
     def __str__(self):
         return '{}, {}, {}; {}: {}, {}: {}'.format(self.name, self.xp, self.duration,
             self.one_name, self.one_impact, self.two_name, self.two_impact)
@@ -124,35 +154,6 @@ job_list = [
            50, 5, 'no money - no honey')
 ]
 
-"""
-    назначение: функция определения множителя к параметру
-    входные параметры:
-        param        -- параметр студента
-    выходные параметры:
-        множитель
-    значение границы, множителя: [-100, 10], [100, 0.1]
-"""
-def multiplier(param):
-    return -4.95 * param + 5.5
-
-"""
-    назначение: функция переопределения значений квеста в соответствии с параметрами студента
-    входные параметры:
-        quest        -- выбранный квест
-        student      -- параметры студента
-    выходные параметры:
-        None
-"""
-def multParam(quest, student):
-    quest.impact_one['mood'] *= multiplier(student.mood) 
-    quest.impact_one['progress'] *= multiplier(student.progress)
-    quest.impact_one['satiety'] *= multiplier(student.satiety)
-    quest.impact_one['finances'] *= multiplier(student.finances)
-    quest.impact_two['mood'] *= multiplier(student.mood) 
-    quest.impact_two['progress'] *= multiplier(student.progress)
-    quest.impact_two['satiety'] *= multiplier(student.satiety)
-    quest.impact_two['finances'] *= multiplier(student.finances)
-
 def generate(student):
     from random import choice
     from copy import deepcopy
@@ -168,4 +169,5 @@ def generate(student):
         quest = deepcopy(job_list[4])
     else:
         quest = deepcopy(choice(job_list))
-    return multPaam(quest, student)
+    quest.multParam(student)
+    return quest
