@@ -106,7 +106,7 @@ path {
     padding: 15px;
 }
 
-#control input[type=submit] {
+#control button {
     width: 100px;
     border: 1px solid black;
     background: #ddd;
