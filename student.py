@@ -71,12 +71,28 @@ class Student:
         for i in vector:
             if i == 'mood':
                 self.mood += vector[i]
+                if self.mood > 100:
+                    self.mood = 100
+                elif self.mood < -100:
+                    self.mood = -100
             elif i == 'progress':
                 self.progress += vector[i]
+                if self.progress > 100:
+                    self.progress = 100
+                elif self.progress < -100:
+                    self.progress = -100
             elif i == 'satiety':
                 self.satiety += vector[i]
+                if self.satiety > 100:
+                    self.satiety = 100
+                elif self.satiety < -100:
+                    self.satiety = -100
             else:
                 self.finances += vector[i]
+                if self.finances > 100:
+                    self.finances = 100
+                elif self.finances < -100:
+                    self.finances = -100
 
     """
         назначение: изменение параметров во времени
