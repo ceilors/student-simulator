@@ -60,6 +60,13 @@ class Student:
         return fmt_str.format(self.mood, self.progress, self.satiety, self.finances,
             self.quest.duration)
 
+    """
+        назначение: изменение параметров студента
+        входные параметры:
+            vector      -- словарь изменений параметров
+        выходные параметры:
+            None
+    """
     def change(self, vector):
         for i in vector:
             if i == 'mood':
@@ -125,11 +132,6 @@ class Student:
             self.quest.duration *= self.slowness
         # вывод информации о студенте в текущий момент времени
         self.log.write(str(self)+'\n')
-
-    """
-        добавить функцию внешних факторов влияющую на систему
-        посредство взаимодействия с окружающими людьми/факторами/случайностями
-    """
 
     def captainCall(self):
         mood = progress = satiety = 0

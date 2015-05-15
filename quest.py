@@ -183,6 +183,12 @@ def generate(student):
     elif finances > 80:
         quest = deepcopy(job_list[3])
         quest.one_impact['finances'] = quest.one_impact['finances'] = -15
+    elif [i for i in [mood, progress, satiety, finances] if abs(i) > 90]:        
+        quest = Quest('Посетить больницу',
+              '', {'mood': -mood / 2, 'progress': -progress / 2, 'satiety': -satiety / 2, 'finances': -finances / 2},
+              '', {'mood':  mood / 2, 'progress':  progress / 2, 'satiety':  satiety / 2, 'finances':  finances / 2},
+               50, 5, 'мне плохо')
+        return quest
     else:
         quest = deepcopy(choice(job_list))
     quest.multParam(student)
