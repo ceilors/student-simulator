@@ -28,33 +28,38 @@
                 </tr>
             </table>
             <script>
-                function do_post() {
+                function do_post(param) {
+                    data = {
+                        another: false, start: false, pause: false, reset: false,
+                        stop: false, slow: false, normal: false, fast: false,
+                    };
+                    data[param] = true;
                     $.ajax({
                         type: 'POST',
-                        url: '/send'
-                        // none data
+                        url: '/send',
+                        contentType : 'application/json',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
                     });
                 }
             </script>
             <div id="quest"> 
                 <span id="status"></span><br/>
                 <div id="progressbar"></div><br/>
-                <span id="alter"><a href="javascript:do_post()" id="another"></a></span>
+                <span id="alter"><a href="javascript:do_post('another')" id="another"></a></span>
             </div>
             <div id="graph_wrap">
                 <div id="graph" class="aGraph"></div>
             </div>
             <div id="control">
-                <form method="post" action="/">
-                    <input name="cmd" type="submit" value="Старт">
-                    <input name="cmd" type="submit" value="Пауза">
-                    <input name="cmd" type="submit" value="Сброс">
-                    <input name="cmd" type="submit" value="Стоп">
-                    <br/>
-                    <input name="cmd" type="submit" value="<<">
-                    <input name="cmd" type="submit" value="1.0x">
-                    <input name="cmd" type="submit" value=">>">
-                </form>
+                <button onClick="javascript:do_post('start')">Старт</button>
+                <button onClick="javascript:do_post('pause')">Пауза</button>
+                <button onClick="javascript:do_post('reset')">Сброс</button>
+                <button onClick="javascript:do_post('stop')">Стоп</button>
+                <br/>
+                <button onClick="javascript:do_post('slow')"><<</button>
+                <button onClick="javascript:do_post('normal')">1.0x</button>
+                <button onClick="javascript:do_post('fast')">>></button>
             </div>
         </div>
         <script>

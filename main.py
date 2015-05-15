@@ -54,36 +54,32 @@ def getParamList():
 """ init data collector """
 collect = Collector()
 
-@app.route('/', methods=['POST'])
-def cmd():
-    command = flask.request.form['cmd']
-    if command == 'Старт':
+@app.route('/send', methods=['POST'])
+def send():
+    json = flask.request.get_json()
+    if json['another']:
+        st.choice = 1 if st.choice == 0 else 0
+    elif json['start']:
         collect.redraw = True
         sm.start()
-    elif command == 'Пауза':
+    elif json['pause']:
         collect.redraw = False
         sm.stop()
-    elif command == 'Сброс':
+    elif json['reset']:
         st.mood = st.progress = st.satiety = st.finances = 0
-    elif command == 'Стоп':
+    elif json['stop']:
         collect.redraw = False
         st.mood = st.progress = st.satiety = st.finances = sm.counter = 0
         collect.data = []
         sm.stop()
-    elif command == '>>':
+    elif json['fast']:
         sm.update(0.5)
-    elif command == '1.0x':
+    elif json['normal']:
         sm.update(1 / sm.timerStep)
-    elif command == '<<':
+    elif json['slow']:
         sm.update(2.0)
-    return flask.render_template('index.html')
-
-@app.route('/send', methods=['POST'])
-def send():
-    # ignore json data because i hate this shit
-    st.choice = 1 if st.choice == 0 else 0
     # for normal work
-    return('Ok!')
+    return True
 
 @app.route('/json/<param>')
 def json_data(param):
