@@ -72,5 +72,5 @@ function replot() {
     svgContainer.append("svg:path").attr("class", "line")
         .attr("stroke", "black").attr("d", line_finances(data));
 }
-setInterval(replot, 1000);
+setInterval(replot, speed);
 replot();

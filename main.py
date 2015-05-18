@@ -48,7 +48,8 @@ def getParamList():
         'status': quest,
         'duration': st.quest.duration,
         'completed': st.duration,
-        'another': another
+        'another': another,
+        'speed': sm.timerStep
     }
 
 """ init data collector """
