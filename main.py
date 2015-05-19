@@ -80,7 +80,7 @@ def send():
     elif json['slow']:
         sm.update(2.0)
     # for normal work
-    return True
+    return 'Ok'
 
 @app.route('/json/<param>')
 def json_data(param):
