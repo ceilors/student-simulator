@@ -136,22 +136,46 @@ job_list = [
           'Посетить',      {'mood':  0, 'progress':  1, 'satiety':  0, 'finances':  0},
           'Пропустить',    {'mood':  1, 'progress': -1, 'satiety':  0, 'finances':  0},
            30, 3, 'Пора и поучиться'),
+    Quest('самообразование',
+          'Начать',        {'mood':  0, 'progress':  1, 'satiety':  0, 'finances':  0},
+          'Отложить',      {'mood':  1, 'progress':  0, 'satiety':  0, 'finances':  0},
+           15, 2, 'Надмозги за учёбой'),
+
     Quest('курсовую',
           'Сделать',       {'mood': -1, 'progress':  3, 'satiety': -1, 'finances':  0},
           'Купить',        {'mood':  1, 'progress':  3, 'satiety':  0, 'finances': -2},
            50, 5, 'Hate this'),
+    Quest('семестровую',
+          'Сделать',       {'mood': -1, 'progress':  2, 'satiety': -1, 'finances':  0},
+          'Купить',        {'mood':  1, 'progress':  2, 'satiety':  0, 'finances': -1},
+           25, 2, 'Hate this'),
+
     Quest('',
           'Играться',      {'mood':  2, 'progress':  0, 'satiety': -1, 'finances':  0},
           'Прогуляться',   {'mood':  3, 'progress':  0, 'satiety': -1, 'finances': -1},
            30, 3, 'I love it!'),
-    Quest('еду',
+    Quest('',
+          'Книга',         {'mood':  2, 'progress':  2, 'satiety': -1, 'finances':  0},
+          'Кино',          {'mood':  4, 'progress':  0, 'satiety': -1, 'finances': -2},
+           15, 2, ''),
+
+    Quest('домашнюю еду',
           'Приготовить',   {'mood':  1, 'progress':  0, 'satiety':  2, 'finances': -1},
           'Заказать',      {'mood':  3, 'progress':  0, 'satiety':  2, 'finances': -2},
            10, 1, 'omnomnom'),
+    Quest('фастфуд',
+          'Приготовить',   {'mood':  2, 'progress':  0, 'satiety':  5, 'finances': -2},
+          'Заказать',      {'mood':  5, 'progress':  0, 'satiety':  5, 'finances': -4},
+           5, 2, 'omnomnom'),
+
     Quest('денег',
           'Работать ради', {'mood': -2, 'progress': -1, 'satiety': -1, 'finances':  3},
           'Одолжить',      {'mood': -2, 'progress': -1, 'satiety':  1, 'finances':  3},
-           50, 5, 'no money - no honey')
+           50, 5, 'no money - no honey'),
+    Quest('подработку',
+          'Пойти на',      {'mood': -1, 'progress': -1, 'satiety': -1, 'finances':  1},
+          'Отложить',      {'mood': -1, 'progress': -1, 'satiety':  1, 'finances':  1},
+           25, 2, 'лёгкие деньги')
 ]
 
 def generate(student):
