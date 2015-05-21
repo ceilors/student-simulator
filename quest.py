@@ -190,28 +190,28 @@ def generate(student):
                50, 5, 'мне плохо')
         return quest
     elif satiety < -80:
-        quest = deepcopy(job_list[3])
+        quest = deepcopy(job_list[6])
         quest.one_impact['satiety'] = quest.one_impact['satiety'] = 5
     elif mood < -80:
-        quest = deepcopy(job_list[2])
+        quest = deepcopy(job_list[5])
         quest.one_impact['mood'] = quest.one_impact['mood'] = 5
     elif progress < -80:
-        quest = deepcopy(job_list[1])
+        quest = deepcopy(job_list[2])
         quest.one_impact['progress'] = quest.one_impact['progress'] = 5
     elif finances < -80:
-        quest = deepcopy(job_list[4])
+        quest = deepcopy(job_list[8])
         quest.one_impact['finances'] = quest.one_impact['finances'] = 5
     elif satiety > 80:
-        quest = deepcopy(job_list[2])
+        quest = deepcopy(job_list[4])
         quest.one_impact['satiety'] = quest.one_impact['satiety'] = -15
     elif mood > 80:
-        quest = deepcopy(job_list[4])
+        quest = deepcopy(job_list[8])
         quest.one_impact['mood'] = quest.one_impact['mood'] = -15
     elif progress > 80:
-        quest = deepcopy(job_list[4])
+        quest = deepcopy(job_list[9])
         quest.one_impact['progress'] = quest.one_impact['progress'] = -15
     elif finances > 80:
-        quest = deepcopy(job_list[3])
+        quest = deepcopy(job_list[7])
         quest.one_impact['finances'] = quest.one_impact['finances'] = -15
     else:
         quest = deepcopy(choice(job_list))
