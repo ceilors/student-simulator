@@ -134,7 +134,7 @@ class Student:
             # подобрать вероятность для случайных событий
             if chance <= 0.05:
                 self.quest = self.inspiredCall()
-            elif chance <= 0.1 * atan(-self.progress / 25) / pi + 0.05:
+            elif chance <= 0.2 * atan(-self.progress / 25) / pi + 0.2:
                 self.quest = self.captainCall()
             else:
                 self.quest = quest.generate(st)

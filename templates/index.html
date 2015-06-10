@@ -22,12 +22,24 @@
                     <td colspan="2"><span id="time"></span></td>
                 </tr>
                 <tr>
-                    <td>Настроение: <span id="mood"></span></td>
-                    <td>Прогресс: <span id="progress"></span></td>
+                    <td>
+                      <img src="img/mood.png" />
+                      Настроение: <span id="mood"></span>
+                    </td>
+                    <td>
+                      <img src="img/progress.png" />
+                      Прогресс: <span id="progress"></span>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Сытость: <span id="satiety"></span></td>
-                    <td>Финансы: <span id="finances"></span></td>
+                    <td>
+                      <img src="img/satiety.png" />
+                      Сытость: <span id="satiety"></span>
+                    </td>
+                    <td>
+                      <img src="img/finances.png" />
+                      Финансы: <span id="finances"></span>
+                    </td>
                 </tr>
             </table>
             <script>
@@ -44,7 +56,7 @@
                         data: JSON.stringify(data),
                         dataType: 'json',
                     });
-                }
+                };
             </script>
             <div id="quest"> 
                 <span id="status"></span><br/>
@@ -64,6 +76,13 @@
                 <button onClick="javascript:do_post('normal')">1.0x</button>
                 <button onClick="javascript:do_post('fast')">>></button>
             </div>
+        </div>
+        <div id="log">
+            <ul>
+                <li> blah - blah - blah </li>
+                <li> lorem ipsum </li>
+                <li> авада кедавра! </li>
+            </ul>
         </div>
         <script src="js/plot.js"></script>
         <script>
