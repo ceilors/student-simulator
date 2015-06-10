@@ -1,4 +1,5 @@
 from random import randint, random
+from math import atan, pi
 import time
 import quest
 
@@ -133,7 +134,7 @@ class Student:
             # подобрать вероятность для случайных событий
             if chance <= 0.05:
                 self.quest = self.inspiredCall()
-            elif chance <= 0.2:
+            elif chance <= 0.1 * atan(-self.progress / 25) / pi + 0.05:
                 self.quest = self.captainCall()
             else:
                 self.quest = quest.generate(st)
