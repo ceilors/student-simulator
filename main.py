@@ -37,7 +37,9 @@ def getParamList():
     another += ' ' + st.quest.name
     months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
               'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+    msg = '{:02}/{:02} {}'.format(sm.day, sm.month, quest)
     return {
+        'msg': msg,
         'hour': int(sm.hour),
         'day': int(sm.day),
         'month': months[int(sm.month) - 1],

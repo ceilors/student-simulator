@@ -79,15 +79,16 @@
         </div>
         <div id="log">
             <ul>
-                <li> blah - blah - blah </li>
-                <li> lorem ipsum </li>
-                <li> авада кедавра! </li>
+                <!-- место для вашей рекламы -->
             </ul>
         </div>
         <script src="js/plot.js"></script>
         <script>
             function reloader() {
                 $.getJSON("/json/student", {}, function(data) {
+                    if ( data.completed == data.duration ) {
+                        log_update( data.msg );
+                    }
                     $("#mood").text(data.mood);
                     $("#progress").text(data.progress);
                     $("#satiety").text(data.satiety);
@@ -107,6 +108,18 @@
                         setInterval(replot, speed);
                     }
                 });
+            }
+            function log_update( msg ) {
+                var list_max = 36;
+                var li_count = document.getElementsByTagName( 'li' ).length;
+                if ( $( '#log li').last().text() != msg ) {
+                    if ( li_count + 1 > list_max ) {
+                        $( '#log li' ).first().remove();
+                    }
+                    $( '#log ul' ).append(
+                        $( '<li>' ).append( msg )
+                    );
+                }
             }
             setInterval(reloader, speed);
             reloader();
