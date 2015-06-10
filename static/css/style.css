@@ -129,7 +129,7 @@ path {
 #log {
     float: right;
     border: 1px solid #ccc;
-    padding: 5px 0;
+    padding: 7px 0;
     background: #efefef;
     border-radius: 10px;
     display: inline-block;
@@ -137,4 +137,5 @@ path {
     width: 340px;
     height: calc(100% - 160px);
     font-size: 8pt;
+    overflow: hidden;
 }

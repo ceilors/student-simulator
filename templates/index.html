@@ -112,12 +112,12 @@
             function log_update( msg ) {
                 var list_max = 36;
                 var li_count = document.getElementsByTagName( 'li' ).length;
-                if ( $( '#log li').last().text() != msg ) {
+                if ( $( '#log li').first().text() != msg ) {
                     if ( li_count + 1 > list_max ) {
-                        $( '#log li' ).first().remove();
+                        $( '#log li' ).last().remove();
                     }
-                    $( '#log ul' ).append(
-                        $( '<li>' ).append( msg )
+                    $( '#log ul' ).prepend(
+                        $( '<li>' ).prepend( msg )
                     );
                 }
             }

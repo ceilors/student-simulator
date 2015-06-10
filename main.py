@@ -37,16 +37,17 @@ def getParamList():
     another += ' ' + st.quest.name
     months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
               'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
-    msg = '{:02}/{:02} {}'.format(sm.day, sm.month, quest)
+    mood, progress, satiety, finances = round(st.mood), round(st.progress), round(st.satiety), round(st.finances)
+    msg = '{:02}/{:02} {} [{}|{}|{}|{}]'.format(sm.day, sm.month, quest, mood, progress, satiety, finances)
     return {
         'msg': msg,
         'hour': int(sm.hour),
         'day': int(sm.day),
         'month': months[int(sm.month) - 1],
-        'mood': round(st.mood),
-        'progress': round(st.progress),
-        'satiety': round(st.satiety),
-        'finances': round(st.finances),
+        'mood': mood,
+        'progress': progress,
+        'satiety': satiety,
+        'finances': finances,
         'status': quest,
         'duration': st.quest.duration,
         'completed': st.duration,
