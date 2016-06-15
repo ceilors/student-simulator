@@ -1,0 +1,128 @@
+<html>
+    <head>
+        <meta charset="UTF-8"> 
+        <title>Симулятор студента</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+        <script src="js/d3.js" charset="utf-8"></script>
+        <script src="js/jquery.js" charset="utf-8"></script>
+        <script src="js/jquery-ui.js" charset="utf-8"></script>
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,400italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <script type="text/javascript">
+            var speed = 1000;
+        </script>
+    </head>
+    <body>
+        <div id="image">
+            <img src="img/normal.png">
+        </div>
+        <div id="info">
+            <table id="parameters">
+                <tr>
+                    <td colspan="2"><span id="time"></span></td>
+                </tr>
+                <tr>
+                    <td>
+                      <img src="img/mood.png" />
+                      Настроение: <span id="mood"></span>
+                    </td>
+                    <td>
+                      <img src="img/progress.png" />
+                      Прогресс: <span id="progress"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                      <img src="img/satiety.png" />
+                      Сытость: <span id="satiety"></span>
+                    </td>
+                    <td>
+                      <img src="img/finances.png" />
+                      Финансы: <span id="finances"></span>
+                    </td>
+                </tr>
+            </table>
+            <script>
+                function do_post(param) {
+                    data = {
+                        another: false, start: false, pause: false, reset: false,
+                        stop: false, slow: false, normal: false, fast: false,
+                    };
+                    data[param] = true;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/send',
+                        contentType : 'application/json',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                    });
+                };
+            </script>
+            <div id="quest"> 
+                <span id="status"></span><br/>
+                <div id="progressbar"></div><br/>
+                <span id="alter"><a href="javascript:do_post('another')" id="another"></a></span>
+            </div>
+            <div id="graph_wrap">
+                <div id="graph" class="aGraph"></div>
+            </div>
+            <div id="control">
+                <button onClick="javascript:do_post('start')">Старт</button>
+                <button onClick="javascript:do_post('pause')">Пауза</button>
+                <button onClick="javascript:do_post('reset')">Сброс</button>
+                <button onClick="javascript:do_post('stop')">Стоп</button>
+                <br/>
+                <button onClick="javascript:do_post('slow')"><<</button>
+                <button onClick="javascript:do_post('normal')">1.0x</button>
+                <button onClick="javascript:do_post('fast')">>></button>
+            </div>
+        </div>
+        <div id="log">
+            <ul>
+                <!-- место для вашей рекламы -->
+            </ul>
+        </div>
+        <script src="js/plot.js"></script>
+        <script>
+            function reloader() {
+                $.getJSON("/json/student", {}, function(data) {
+                    if ( data.completed == data.duration ) {
+                        log_update( data.msg );
+                    }
+                    $("#mood").text(data.mood);
+                    $("#progress").text(data.progress);
+                    $("#satiety").text(data.satiety);
+                    $("#finances").text(data.finances);
+                    $("#status").text(data.status);
+                    $("#progressbar").progressbar({
+                        value: data.completed,
+                        max: data.duration
+                    })
+                    $("#time").text(data.day + ' ' + data.month + ', ' + data.hour + 'ч');
+                    $("#another").text(data.another);
+                    if (speed != 1000 * data.speed) {
+                        speed = 1000 * data.speed;
+                        clearTimeout(reloader);
+                        setInterval(reloader, speed);
+                        clearTimeout(replot);
+                        setInterval(replot, speed);
+                    }
+                });
+            }
+            function log_update( msg ) {
+                var list_max = 36;
+                var li_count = document.getElementsByTagName( 'li' ).length;
+                if ( $( '#log li').first().text() != msg ) {
+                    if ( li_count + 1 > list_max ) {
+                        $( '#log li' ).last().remove();
+                    }
+                    $( '#log ul' ).prepend(
+                        $( '<li>' ).prepend( msg )
+                    );
+                }
+            }
+            setInterval(reloader, speed);
+            reloader();
+        </script>
+    </body>
+</html>

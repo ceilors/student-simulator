@@ -1,0 +1,141 @@
+/* body style */
+body {
+    width: 1100px;
+    margin: 0px auto;
+    height: 100%;
+    font-size: 12pt;
+    font-family: 'PT Sans';
+}
+
+/* student image */
+#image {
+    display: inline-block;
+    width: 150px;
+    margin-top: 20px;
+    float: left;
+}
+
+#image img {
+    width: 150px;
+}
+
+/* main window */
+#info {
+    display: inline-block;
+    margin: 20px 0 0 50px;
+    width: 500px;
+    height: calc(100% - 40px);
+}
+
+form {
+    margin: 0;
+}
+
+/* list of parameters */
+#parameters {
+    width: 100%;
+    background: #fff;
+}
+
+#parameters td {
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#parameters td img {
+    width: 16px;
+    height: 16px;
+    margin-right: 7px;
+    border: 1px solid black;
+    vertical-align: middle;
+    margin-bottom: 1px;
+}
+
+/* current quest */
+#quest {
+    display: block;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 5px 0;
+    background: #efefef;
+    border-radius: 10px;
+    font-style: italic;
+}
+
+#progressbar {
+    width: calc(100% - 50px);
+    height: 10px;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+#alter {
+    font-size: 10pt;
+}
+
+#alter a {
+    text-decoration: none;
+    font-style: normal;
+    color: #f50;
+}
+
+/* graph style */
+#graph_wrap {
+    background: #fff;
+    text-align: center;
+    width: 100%;
+}
+#graph {
+    width: calc(100% - 50px);
+    display: inline-block;
+    height: 300px;
+}
+
+path {
+    stroke-width: 1.25;
+    fill: none;
+}
+
+.axis {
+    shape-rendering: crispEdges;
+}
+
+.x.axis path, .x.axis line, .y.axis line, .y.axis path {
+    fill: none;
+    stroke: #000;
+}
+
+/* buttons */
+#control {
+    display: block;
+    text-align: center;
+    border: 1px solid #ccc;
+    background: #efefef;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+#control button {
+    width: 100px;
+    border: 1px solid black;
+    background: #ddd;
+    margin: 5px 5px;
+    font-family: inherit;
+    font-size: 10pt;
+}
+
+#log {
+    float: right;
+    border: 1px solid #ccc;
+    padding: 7px 0;
+    background: #efefef;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 60px 0 0 50px;
+    width: 340px;
+    height: calc(100% - 160px);
+    font-size: 8pt;
+    overflow: hidden;
+}
